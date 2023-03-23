@@ -1,6 +1,11 @@
 const express = require('express');
 const session = require('express-session');
-const app = express();
+const app = express()
+    .use(express.urlencoded({
+        extended: true
+    }))
+    .set('view engine', 'ejs')
+    .set('views', 'views')
 const dotenv = require('dotenv').config();
 
 
@@ -28,23 +33,17 @@ app.use(session({
 }));
 
 
-
 ///////////////////////////
 // Set Templating Engine //
 ///////////////////////////
 app.set('view engine', 'ejs');
 
 
-////////////////////////
-// Define Main Routes //
-////////////////////////
-app.get('/', (req, res) => {
-    const title = "Match-A-Pet";
-    res.render('index', {
-        title
-    });
-})
-
+///////////////////////////
+///////// Routes //////////
+///////////////////////////
+const appRoutes = require('./routes/index.js')
+app.use('/index', appRoutes)
 
 
 ////////////////
