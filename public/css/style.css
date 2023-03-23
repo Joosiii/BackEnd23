@@ -1,0 +1,55 @@
+/* Overall Page Styling */
+
+*,
+html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #b9ceff;
+    font-family: 'Roboto', sans-serif;
+}
+
+main {
+    width: 75%;
+    margin: auto;
+    margin-top: 5em;
+}
+
+
+
+
+/* Landing Page Styling */
+
+#index {
+    background-color: #253355;
+}
+
+#index main {
+    width: 100%;
+    margin-top: 40%;
+}
+
+#index img {
+    display: block;
+    margin: auto;
+    max-width: 100%;
+}
+
+#index button {
+    display: block;
+    margin: auto;
+    margin-top: 1.5em;
+    width: 60%;
+    padding: 1em 2em;
+    background-color: white;
+    color: #253355;
+    border: none;
+    border-radius: 40px;
+    font-weight: 700;
+    font-family: 'Roboto',
+        sans-serif;
+    font-size: 14px;
+}
