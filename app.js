@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const { connectDB } = require('./db/index');
 const app = express()
     .use(express.urlencoded({
         extended: true
@@ -7,6 +8,8 @@ const app = express()
     .set('view engine', 'ejs')
     .set('views', 'views')
 const dotenv = require('dotenv').config();
+
+connectDB();
 
 
 //////////////////////
