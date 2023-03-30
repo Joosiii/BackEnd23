@@ -42,8 +42,12 @@ app.set('view engine', 'ejs');
 ///////////////////////////
 ///////// Routes //////////
 ///////////////////////////
-const appRoutes = require('./routes/index.js')
-app.use('/index', appRoutes)
+const appRoutes = require('./routes/index')
+app
+    .get('/', appRoutes)
+    .get('/profile', appRoutes)
+    .get('/create', appRoutes)
+
 
 
 ////////////////

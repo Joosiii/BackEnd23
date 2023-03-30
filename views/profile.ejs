@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('includes/head'); -%>
+</head>
+
+<body>
+    <%- include('includes/header'); -%>
+
+    <%- include('includes/nav'); -%>
+
+    <main class="profile">
+        <section class="profile-human">
+            <img src="/images/2.jpeg" alt="profielimg">
+
+            <h2><%= userprofile.name %></h2>
+            <h3><%= userprofile.age %> years old</h3>
+            <p id="selected"><%= userprofile.country %></p>
+            <p><%= userprofile.bio %></p>
+            <ul>
+                <% userprofile.interests.forEach(function(item){ %>
+                <li><%= item %></li>
+                <% }) %>
+            </ul>
+        </section>
+
+        <button type="button" onclick="location.href='/edit'">Edit Profile</button>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('includes/head'); -%>
+</head>
+
+<body>
+    <%- include('includes/header'); -%>
+
+    <%- include('includes/nav'); -%>
+
+    <main>
+        <h1>Make Profile</h1>
+
+        <form action="/create" method="post">
+            <section id="humanprofileedit">
+
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name">
+
+                <label for="age">Date of Birth</label>
+                <input type="date" id="age" name="age">
+
+                <label for="country">Country</label>
+                <input type="text" name="country" id="country"></input>
+
+                <label for="bio">Profile Biography</label>
+                <textarea name="bio" id="bio" cols="30" rows="5"></textarea>
+
+                <div id="int-list">
+                    <fieldset>
+                        <legend>Interests:</legend>
+                        <% interests.forEach(function(interest){ %>
+                        <input type="checkbox" name="interests" value="<%= interest %>" id="<%= interest %>">
+                        <label for="<%= interest %>"><%= interest %></label><br>
+                        <% }) %>
+                    </fieldset>
+                </div>
+
+                <label for="mail">E-mailaddress</label>
+                <input type="email" id="mail" name="mail">
+
+                <label for="ConfirmEmail">Confirm E-mailaddress</label>
+                <input type="email" id="ConfirmEmail" name="ConfirmEmail">
+
+                <label for="Password"> Create password</label>
+                <input type="password" id="password" name="password">
+
+                <label for="ConfirmPassword"> Confirm password</label>
+                <input type="password" id="ConfirmPassword" name="ConfirmPassword">
+            </section>
+
+
+            <input type="submit" value="Opslaan">
+        </form>
+    </main>
+</body>
+
+</html>

@@ -20,6 +20,76 @@ main {
 
 
 
+/* Header & Nav Styling */
+
+header,
+nav {
+    position: sticky;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    text-align: center;
+    background-color: #253355;
+    padding: 1em 0;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
+}
+
+header img {
+    height: 30px;
+}
+
+#filter {
+    position: absolute;
+    top: 1em;
+    right: 1.5em;
+}
+
+.back {
+    position: absolute;
+    top: 1em;
+    left: 1.5em;
+}
+
+.back img {
+    transform: rotate(180deg);
+}
+
+
+
+nav {
+    background-color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 1em 0 calc(1em - 4px) 0;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav ul img {
+    max-height: 30px;
+    max-width: 30px;
+    padding: 0;
+    opacity: 0.5;
+}
+
+.active {
+    opacity: 1;
+}
+
+
 
 /* Landing Page Styling */
 
@@ -52,4 +122,103 @@ main {
     font-family: 'Roboto',
         sans-serif;
     font-size: 14px;
+}
+
+
+
+/* Make Profile & Edit Page Styling */
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.75em;
+    margin-bottom: 6em;
+}
+
+label,
+form p,
+p {
+    margin-bottom: 0.5em;
+    font-weight: 700;
+}
+
+input[type=text] {
+    width: 100%;
+    background-color: white;
+    border: none;
+    border-radius: 40px;
+    margin-bottom: 1em;
+    padding: 0.75em 1em;
+    font-family: 'Roboto', sans-serif;
+}
+
+textarea {
+    width: 100%;
+    background-color: white;
+    border: none;
+    border-radius: 25px;
+    margin-bottom: 1em;
+    padding: 0.5em 1em;
+    font-family: 'Roboto',
+        sans-serif;
+}
+
+#int-list {
+    height: 100px;
+    overflow: auto;
+    margin-bottom: 1em;
+}
+
+fieldset {
+    padding: 0.5em 1em;
+    background-color: white;
+    border: none;
+    border-radius: 25px;
+}
+
+legend {
+    float: left;
+    width: 100%;
+    margin-bottom: 0.5em;
+    font-weight: 700;
+}
+
+input[type=checkbox] {
+    margin-right: 0.5em;
+}
+
+fieldset label {
+    font-weight: 400;
+}
+
+input[type=submit] {
+    margin: auto;
+    margin-top: 1em;
+    width: 60%;
+    padding: 1em 2em;
+    background-color: #a50407;
+    color: white;
+    border: none;
+    border-radius: 40px;
+    font-weight: 700;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+}
+
+#previewphoto {
+    margin-top: 0.5em;
+}
+
+select {
+    width: 100%;
+    margin-bottom: 1em;
+    border: none;
+    border-radius: 25px;
+    padding: 0.75em 1em;
+}
+
+#errorhandling{
+    margin: 20px 0px;
+    color: darkred;
+    font-size: 1.2em;
 }
