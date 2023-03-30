@@ -1,5 +1,8 @@
-const express = require('express')
-const session = require('express-session')
+
+const express = require('express');
+const session = require('express-session');
+const { connectDB } = require('./db/index');
+
 const app = express()
     .use(express.urlencoded({
         extended: true
@@ -7,15 +10,8 @@ const app = express()
     .set('view engine', 'ejs')
     .set('views', 'views')
 const dotenv = require('dotenv').config()
-const {
-    MongoClient
-} = require('mongodb')
-const {
-    ObjectId
-} = require('mongodb')
-const mongoose = require('mongoose')
 
-const db = null
+connectDB();
 
 //////////////////////
 // Define Variables //
@@ -70,28 +66,6 @@ app.use((req, res, next) => {
         title
     });
 })
-
-
-
-/////////////////////////
-// Connect to database //
-/////////////////////////
-
-// Er wordt een connectie gemaakt met de database van MongoDB, de variabelen zoals DB_URI & NAME worden uit de .env file gehaald
-// Bron: https://github.com/cmda-bt/be-course-21-22/blob/main/examples/mongo_example/server.js
-async function connectDB() {
-    const uri = process.env.DB_URI;
-    const client = new MongoClient(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    });
-    try {
-        await client.connect();
-        db = client.db(process.env.DB_NAME)
-    } catch (error) {
-        throw error
-    }
-}
 
 
 

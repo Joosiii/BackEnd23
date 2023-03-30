@@ -1,3 +1,5 @@
+const { ProfileSchema } = require('../model/index');
+
 const interests = ["Travel", "Dogs", "Cooking", "Surfing"];
 
 exports.landingPage = (req, res) => {
@@ -18,7 +20,12 @@ exports.profilePage = (req, res) => {
     })
 }
 
-exports.createProfilePage = (req, res) => {
+exports.createProfilePage = async (req, res) => {
+    console.log('@@-- req.body', req.body);
+    const data = req.body;
+
+    const profile = new ProfileSchema(data);
+    await profile.save();
     res.render('create.ejs', {
         interests
     })
