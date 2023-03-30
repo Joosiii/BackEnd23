@@ -5,6 +5,7 @@ const appController = require('../controller/index.js')
 
 router.get('/', appController.landingPage)
 router.get('/profile', appController.profilePage)
-router.post('/create', appController.createProfilePage)
+router.get('/create', appController.createProfilePage)
+router.post('/create', appController.submitProfilePage)
 
 module.exports = router

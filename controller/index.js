@@ -1,32 +1,41 @@
-const { ProfileSchema } = require('../model/index');
+const ProfileModel = require("../model/profile");
 
 const interests = ["Travel", "Dogs", "Cooking", "Surfing"];
 
 exports.landingPage = (req, res) => {
-    res.render('index.ejs')
+    res.render('index.ejs');
 }
 
-exports.profilePage = (req, res) => {
-    let userprofile = {
-        name: "Hans",
-        age: "30",
-        country: "Nederland",
-        bio: "Hey hallo",
-        interests: interests
-    }
+exports.profilePage = async (req, res) => {
+    try {
+        const userprofile = await ProfileModel.findOne().sort({
+            $natural: -1
+        }).limit(1);
+        console.log(userprofile);
 
-    res.render('profile.ejs', {
-        userprofile
-    })
+        res.render('profile.ejs', {
+            userprofile
+        });
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 exports.createProfilePage = async (req, res) => {
-    console.log('@@-- req.body', req.body);
-    const data = req.body;
-
-    const profile = new ProfileSchema(data);
-    await profile.save();
     res.render('create.ejs', {
         interests
-    })
+    });
+}
+
+exports.submitProfilePage = async (req, res) => {
+    try {
+        const data = req.body;
+
+        const profile = new ProfileModel(data);
+        await profile.save();
+
+        res.redirect('/profile');
+    } catch (error) {
+        console.log(error);
+    }
 }
