@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('includes/head'); -%>
+</head>
+
+<body class="login">
+    <main>
+        <img src="images/indexgraphic.png" alt="">
+
+        <form action="/login" method="post">
+            <label for="email">Emailaddress</label>
+            <input type="text" id="email" name="email">
+
+            <label for="password">Password</label>
+            <input type="password" id="age" name="age">
+
+            <input type="submit" value="Log In">
+        </form>
+
+        <button type="button" onclick="location.href='/create'">Create Profile</button>
+
+    </main>
+</body>
+
+</html>

@@ -93,22 +93,22 @@ nav ul img {
 
 /* Landing Page Styling */
 
-#index {
+#index, .login {
     background-color: #253355;
 }
 
-#index main {
+#index main, .login main{
     width: 100%;
     margin-top: 40%;
 }
 
-#index img {
+#index img, .login img {
     display: block;
     margin: auto;
     max-width: 100%;
 }
 
-#index button {
+#index button, .login button {
     display: block;
     margin: auto;
     margin-top: 1.5em;
@@ -122,6 +122,12 @@ nav ul img {
     font-family: 'Roboto',
         sans-serif;
     font-size: 14px;
+}
+
+#index button:nth-of-type(1) {
+    background-color: #253355;
+    color: white;
+    border: 2px solid white;
 }
 
 

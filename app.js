@@ -11,6 +11,7 @@ const app = express()
     .set('view engine', 'ejs')
     .set('views', 'views')
 const dotenv = require('dotenv').config();
+const cookieParser = require('cookie-parser');
 
 connectDB();
 
@@ -28,15 +29,16 @@ app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }));
+
+app.use(cookieParser());
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
-        secure: true
+        secure: false
     }
 }));
-
 
 ///////////////////////////
 // Set Templating Engine //
@@ -50,9 +52,13 @@ app.set('view engine', 'ejs');
 const appRoutes = require('./routes/index')
 app
     .get('/', appRoutes)
+    .get('/login', appRoutes)
+    .post('/login', appRoutes)
     .get('/profile', appRoutes)
     .get('/create', appRoutes)
     .post('/create', appRoutes)
+    .get('/edit', appRoutes)
+    .post('/edit', appRoutes)
 
 
 ////////////////

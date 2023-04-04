@@ -16,7 +16,7 @@
 
             <h2><%= userprofile.name %></h2>
             <h3><%= userprofile.age %> years old</h3>
-            <p id="selected"><%= userprofile.country %></p>
+            <p><%= userprofile.country %></p>
             <p><%= userprofile.bio %></p>
             <ul>
                 <% userprofile.interests.forEach(function(item){ %>
@@ -27,6 +27,8 @@
 
         <button type="button" onclick="location.href='/edit'">Edit Profile</button>
     </main>
+
+    <script src="js/profilescript.js"></script>
 </body>
 
 </html>
