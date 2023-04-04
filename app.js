@@ -58,6 +58,8 @@ app
     .get('/', appRoutes)
     .get('/login', appRoutes)
     .post('/login', appRoutes)
+    .get('/logout', appRoutes)
+    .get('/home', appRoutes)
     .get('/profile', appRoutes)
     .get('/create', appRoutes)
     .post('/create', appRoutes)
