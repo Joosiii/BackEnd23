@@ -12,6 +12,7 @@ const app = express()
     .set('views', 'views')
 const dotenv = require('dotenv').config();
 const cookieParser = require('cookie-parser');
+const MongoStore = require('connect-mongo');
 
 connectDB();
 
@@ -33,11 +34,14 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(session({
     secret: process.env.SESSION_SECRET,
-    resave: false,
+    store: MongoStore.create({
+        mongoUrl: process.env.DB_URI,
+    }),
     saveUninitialized: true,
     cookie: {
-        secure: false
-    }
+        maxAge: 1000 * 60 * 60 * 24
+    },
+    resave: false
 }));
 
 ///////////////////////////

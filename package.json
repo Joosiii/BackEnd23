@@ -23,6 +23,7 @@
   "homepage": "https://github.com/Joosiii/BackEnd23#readme",
   "dependencies": {
     "array-back": "^6.2.2",
+    "connect-mongo": "^5.0.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.9",
