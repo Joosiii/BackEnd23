@@ -45,9 +45,9 @@ exports.submitLoginPage = (req, res) => {
             if (!user) {
                 // Redirect naar login als de e-mail niet in de database staat
                 res.render('login.ejs', {
-                    foutmelding: 'Invalid email or password...'
+                    foutmelding: 'Invalid email or password...',
+                    title: "Login"
                 });
-                return res.status(401).send('Invalid credentials');
             }
 
             // Het opgeslagen password wordt met bcrypt vergeleken met het ingevoerde password
@@ -59,9 +59,9 @@ exports.submitLoginPage = (req, res) => {
                 } else {
                     // Redirect naar login als de password niet correct is
                     res.render('login.ejs', {
-                        foutmelding: 'Invalid email or password...'
+                        foutmelding: 'Invalid email or password...',
+                        title: "Login"
                     });
-                    return res.status(401).send('Invalid credentials');
                 }
             });
         })

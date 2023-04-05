@@ -231,6 +231,8 @@ input[type=text] {
     margin-bottom: 1em;
     padding: 0.75em 1em;
     font-family: 'Roboto', sans-serif;
+
+    margin-top: 0.5em;
 }
 
 textarea {
@@ -242,12 +244,16 @@ textarea {
     padding: 0.5em 1em;
     font-family: 'Roboto',
         sans-serif;
+
+    margin-top: 0.5em;
 }
 
 #int-list {
     height: 100px;
     overflow: auto;
     margin-bottom: 1em;
+
+    margin-top: 0.5em;
 }
 
 fieldset {
@@ -255,6 +261,8 @@ fieldset {
     background-color: white;
     border: none;
     border-radius: 25px;
+
+    margin-top: 0.5em;
 }
 
 legend {
@@ -284,6 +292,10 @@ input[type=submit] {
     font-weight: 700;
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
+}
+
+input[type=number], input[type=email], input[type=password] {
+    margin-top: 0.5em;
 }
 
 #previewphoto {
