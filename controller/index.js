@@ -136,19 +136,22 @@ exports.loadEditProfilePage = async (req, res) => {
 
 exports.editProfilePage = async (req, res) => {
     try {
-        let editprofile = {
-            name: req.body.name,
-            age: req.body.age,
-            country: req.body.country,
-            bio: req.body.bio,
-            interests: arrayify(req.body.interests)
-        }
-
         const query = {
             _id: req.session.profileID
         };
 
-        await ProfileModel.replaceOne(query, editprofile);
+        // Retrieve the existing profile record from the database
+        let profile = await ProfileModel.findOne(query);
+
+        // Update only the fields that are being changed
+        profile.name = req.body.name;
+        profile.age = req.body.age;
+        profile.country = req.body.country;
+        profile.bio = req.body.bio;
+        profile.interests = arrayify(req.body.interests);
+
+        // Save the updated profile back to the database
+        await profile.save();
 
         res.redirect('/profile');
     } catch (error) {
