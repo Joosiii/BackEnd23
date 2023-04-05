@@ -1,4 +1,4 @@
-# BackEnd23
+# BackEnd 2023
 
 Dit jaar moesten wij, Joost Verweijen en Tessa Welling backend team project herkansen. Vorig jaar zaten wij al samen in een team met nog 2 andere team genoten. Dit jaar zijn wij weer samen gevoegd om een nieuwe poging te wagen om een mooie webapp te maken die een persoon match aan een leuk diertje. 
 
@@ -44,7 +44,7 @@ U krijgt een alert dat de app gehost wordt binnen uw lokale systeem, in dit geva
 
 Om gebruik te maken van de MongoDB database heeft u een eigen .env file nodig waarin u uw eigen gegevens invult. Om te kijken hoe dit moet kunt u de code binnen [VOORBEELDenv](https://github.com/Joosiii/BackEnd23/blob/main/VOORBEELDenv) kopiëren en personaliseren binnen uw eigen file.
 
-De structuur van een document binnen mijn database ziet er als volgende uit:
+De structuur van een document binnen onze database ziet er als volgende uit:
 
   {
         "url": "",
