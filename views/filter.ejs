@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('includes/head'); -%>
+</head>
+
+
+
+
+<body>
+    <header>
+        <a href="/home"><img src="images/logowhite.png" alt=""></a>
+        <a id="filter" href="/discover"><img src="images/icon_filter2.png" alt=""></a>    
+    </header>
+
+
+
+<%- include('includes/nav'); -%>
+<main>
+    <h1>Set Up Filters</h1>
+        <form action="/filter" method="post">
+            <label for="type_filter">Animal Type</label>
+                <select name="type_filter" id="type_filter">
+                    <option value="Dog">Dog</option>
+                    <option value="Cat">Cat</option>
+                    <option value="Fish">Fish</option>
+                    <option value="Egel">Egel</option>
+                </select>
+                    <input type="submit" value="Filters Toepassen">
+        </form>
+</main>
+
+<script src="js/filterscript.js"></script>
+
+</body>
+
+
+
+
+</html>
+
+
