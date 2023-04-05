@@ -4,12 +4,14 @@ const arrayify = require('array-back');
 const bcrypt = require('bcrypt');
 
 const interests = ["Travel", "Dogs", "Cooking", "Surfing", "Politics", "Cats", "Fitness", "Reading", "Netflix", "Partying"];
-//const interests = ["Travel", "Dogs", "Cooking", "Surfing"];
 const breed = ["heidewachter", ""]
 
 exports.landingPage = (req, res) => {
     if (!req.session.profileID) {
-        res.render('index.ejs');
+        const title = "Match-A-Pet";
+        res.render('index.ejs', {
+            title
+        });
     } else {
         res.redirect('/home');
     }
@@ -19,7 +21,11 @@ exports.landingPage = (req, res) => {
 
 exports.loginPage = (req, res) => {
     if (!req.session.profileID) {
-        res.render('login.ejs');
+        const title = "Login";
+        res.render('login.ejs', {
+            title,
+            foutmelding: null
+        });
     } else {
         res.redirect('/home');
     }
@@ -31,21 +37,30 @@ exports.submitLoginPage = (req, res) => {
         password
     } = req.body;
 
-    console.log('password:', password);
-
+    // Vind een profiel met het ingevoerde emailadres
     ProfileModel.findOne({
             email: email
         }).exec()
         .then((user) => {
-            console.log(user);
+            if (!user) {
+                // Redirect naar login als de e-mail niet in de database staat
+                res.render('login.ejs', {
+                    foutmelding: 'Invalid email or password...'
+                });
+                return res.status(401).send('Invalid credentials');
+            }
 
+            // Het opgeslagen password wordt met bcrypt vergeleken met het ingevoerde password
             bcrypt.compare(password, user.password, function (err, result) {
                 if (result) {
-                    console.log('Passwords match');
-                    req.session.profileID = user._id; // Set user ID in session
-                    res.redirect('/home'); // Redirect to profile
+                    // De id van de betreffende user wordt in de sessie opgeslagen zodat deze later gebruikt kan worden
+                    req.session.profileID = user._id;
+                    res.redirect('/home');
                 } else {
-                    console.log('Passwords do not match');
+                    // Redirect naar login als de password niet correct is
+                    res.render('login.ejs', {
+                        foutmelding: 'Invalid email or password...'
+                    });
                     return res.status(401).send('Invalid credentials');
                 }
             });
@@ -58,6 +73,7 @@ exports.submitLoginPage = (req, res) => {
 
 
 exports.logOut = (req, res) => {
+    // De session wordt gedestroyed als de logout route wordt aangeroepen via de knop op de homepage
     req.session.destroy(function (err) {
         if (err) {
             console.log(err);
@@ -69,11 +85,20 @@ exports.logOut = (req, res) => {
 
 
 
-exports.homePage = (req, res) => {
+exports.homePage = async (req, res) => {
     if (!req.session.profileID) {
         res.redirect('/');
     } else {
-        res.render('home.ejs')
+        // De naam van de user wordt opgehaald en weergegeven op de pagina
+        const userprofile = await ProfileModel.findById(req.session.profileID);
+
+        const name = userprofile.name;
+
+        const title = "Home";
+        res.render('home.ejs', {
+            title,
+            name
+        })
     }
 }
 
@@ -84,11 +109,13 @@ exports.profilePage = async (req, res) => {
         if (!req.session.profileID) {
             res.redirect('/');
         } else {
+            // Het profiel van de user wordt opgehaald en weergegeven op de pagina
             const userprofile = await ProfileModel.findById(req.session.profileID);
-            console.log(userprofile);
 
+            const title = "My Profile";
             res.render('profile.ejs', {
-                userprofile
+                userprofile,
+                title
             });
         }
     } catch (error) {
@@ -98,8 +125,10 @@ exports.profilePage = async (req, res) => {
 
 exports.createProfilePage = async (req, res) => {
     if (!req.session.profileID) {
+        const title = "Create Profile";
         res.render('create.ejs', {
-            interests
+            interests,
+            title
         });
     } else {
         res.redirect('/profile');
@@ -110,7 +139,7 @@ exports.submitProfilePage = (req, res) => {
     const data = req.body;
 
     bcrypt.hash(data.password, 10, function (err, hashedPassword) {
-        // Save user to database with hashed password
+        // Het profiel wordt opgeslagen in de database met een gehashed wachtwoord
         data.password = hashedPassword;
         const newUser = new ProfileModel(data);
         newUser.save()
@@ -119,18 +148,18 @@ exports.submitProfilePage = (req, res) => {
                 res.redirect('/profile');
             });
     });
-    console.log(data.password);
-    console.log(data);
 }
 
 exports.loadEditProfilePage = async (req, res) => {
     try {
-        console.log(req.session.profileID);
+        // Het profiel wordt opgehaald om geedit te worden, de gegevens worden automatisch in de invoervelden gezet
         const userprofile = await ProfileModel.findById(req.session.profileID);
 
+        const title = "Edit Profile";
         res.render('edit.ejs', {
             userprofile,
-            interests
+            interests,
+            title
         });
     } catch (error) {
         console.log(error);
@@ -143,17 +172,16 @@ exports.editProfilePage = async (req, res) => {
             _id: req.session.profileID
         };
 
-        // Retrieve the existing profile record from the database
         let profile = await ProfileModel.findOne(query);
 
-        // Update only the fields that are being changed
+        // Alleen de aanpasbare velden moeten geupdate worden, zodat de email en password ongedeerd blijven
         profile.name = req.body.name;
         profile.age = req.body.age;
         profile.country = req.body.country;
         profile.bio = req.body.bio;
         profile.interests = arrayify(req.body.interests);
 
-        // Save the updated profile back to the database
+        // Met .save worden de velden die hierboven gedeclareerd zijn vervangen en geupdate in de database
         await profile.save();
 
         res.redirect('/profile');
@@ -170,7 +198,7 @@ exports.discoverPage = async (req, res) => {
     let matchType = null
 
     if (!req.session.profileID) {
-        res.render('login.ejs');
+        res.redirect('/');
     } else {
         if (Object.hasOwn(req.query, 'type')) {
             matchType = req.query.type
@@ -179,20 +207,7 @@ exports.discoverPage = async (req, res) => {
 
         const match = await matchesModel.findOne(query);
 
-        // if (!nr) {
-        //     nr = 0;
-        // }
-        // match = matches[nr];
-        // nr += 1;
-        // const title = "Discover";
-        // res.render('discover.ejs', {
-        //     title,
-        //     match,
-        //     nr
-        // });
-
         const title = "Discover";
-        // res.send(matches)
         res.render('discover.ejs', {
             title,
             match,
@@ -203,9 +218,12 @@ exports.discoverPage = async (req, res) => {
 
 exports.loadfilterPage = (req, res) => {
     if (!req.session.profileID) {
-        res.render('login.ejs');
+        res.redirect('/');
     } else {
-        res.render('filter.ejs');
+        const title = "Filter";
+        res.render('filter.ejs', {
+            title
+        });
     }
 }
 

@@ -9,6 +9,9 @@
     <main>
         <img src="images/indexgraphic.png" alt="">
 
+        <% if (foutmelding) { %>
+        <p><%= foutmelding %></p>
+        <% } %>
         <form action="/login" method="post">
             <label for="email">Emailaddress</label>
             <input type="text" id="email" name="email">

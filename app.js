@@ -56,7 +56,6 @@ app.set('view engine', 'ejs');
 const appRoutes = require('./routes/index')
 app
     .get('/', appRoutes)
-
     .get('/login', appRoutes)
     .post('/login', appRoutes)
     .get('/logout', appRoutes)
@@ -96,6 +95,4 @@ app.use((req, res, next) => {
 // De server wordt opgestart, hierbij wordt de port waarop deze wordt gehost gelogt in de console, en wordt er gecheckt of de database is geconnect, waarna de gebruiker ook hierover wordt ingelicht via de console
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
-
-    connectDB().then(() => console.log('We have a connection to Mongo!'));
 })
