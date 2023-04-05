@@ -29,8 +29,13 @@ const profileSchema = new mongoose.Schema({
         type: [String],
         required: true
     },
+    Breed: { 
+        type: [String],
+        require: true 
+    },
 });
 
 const ProfileModel = mongoose.model("profiles", profileSchema);
 
 module.exports = ProfileModel;
+

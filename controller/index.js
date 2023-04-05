@@ -1,8 +1,11 @@
+const matchesModel = require("../model/matches");
 const ProfileModel = require("../model/profile");
 const arrayify = require('array-back');
 const bcrypt = require('bcrypt');
 
 const interests = ["Travel", "Dogs", "Cooking", "Surfing", "Politics", "Cats", "Fitness", "Reading", "Netflix", "Partying"];
+//const interests = ["Travel", "Dogs", "Cooking", "Surfing"];
+const breed = ["heidewachter", ""]
 
 exports.landingPage = (req, res) => {
     if (!req.session.profileID) {
@@ -158,3 +161,68 @@ exports.editProfilePage = async (req, res) => {
         console.log(error);
     }
 }
+
+  exports.discoverPage = async (req, res) => {
+        const query = {
+            seen: false
+        };
+
+        let matchType = null
+        
+        if (Object.hasOwn(req.query, 'type')) {
+            matchType = req.query.type
+            query.type = matchType
+        }
+
+        const match = await matchesModel.findOne(query);
+
+        // if (!nr) {
+        //     nr = 0;
+        // }
+        // match = matches[nr];
+        // nr += 1;
+        // const title = "Discover";
+        // res.render('discover.ejs', {
+        //     title,
+        //     match,
+        //     nr
+        // });
+
+        const title = "Discover";
+        // res.send(matches)
+        res.render('discover.ejs', {
+            title,
+            match,
+            matchType
+        });
+    } 
+
+exports.loadfilterPage = (req, res) => {
+    res.render('filter.ejs');
+ }
+
+
+ exports.filterPage = async (req, res) => {
+    res.redirect(`/discover?type=${req.body.type_filter}`)
+ }
+
+ exports.markMatchAsSeen = async (req, res) => {
+    const matchId = req.body.matchid;
+    
+    try {
+        await matchesModel.findByIdAndUpdate(matchId, {seen: true}, {returnDocument: 'after'})
+    } catch(error) {
+        console.log(error)
+    }
+
+    const matchType = req.body.matchType
+
+    if (matchType) {
+        return res.redirect(`/discover?type=${matchType}`)
+    }
+
+    return res.redirect(`/discover`)
+ }
+       
+
+ 
