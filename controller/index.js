@@ -11,7 +11,7 @@ exports.landingPage = (req, res) => {
     if (!req.session.profileID) {
         res.render('index.ejs');
     } else {
-        res.redirect('/profile');
+        res.redirect('/home');
     }
 }
 
@@ -21,7 +21,7 @@ exports.loginPage = (req, res) => {
     if (!req.session.profileID) {
         res.render('login.ejs');
     } else {
-        res.redirect('/profile');
+        res.redirect('/home');
     }
 }
 
@@ -43,7 +43,7 @@ exports.submitLoginPage = (req, res) => {
                 if (result) {
                     console.log('Passwords match');
                     req.session.profileID = user._id; // Set user ID in session
-                    res.redirect('/profile'); // Redirect to profile
+                    res.redirect('/home'); // Redirect to profile
                 } else {
                     console.log('Passwords do not match');
                     return res.status(401).send('Invalid credentials');
@@ -162,13 +162,16 @@ exports.editProfilePage = async (req, res) => {
     }
 }
 
-  exports.discoverPage = async (req, res) => {
-        const query = {
-            seen: false
-        };
+exports.discoverPage = async (req, res) => {
+    const query = {
+        seen: false
+    };
 
-        let matchType = null
-        
+    let matchType = null
+
+    if (!req.session.profileID) {
+        res.render('login.ejs');
+    } else {
         if (Object.hasOwn(req.query, 'type')) {
             matchType = req.query.type
             query.type = matchType
@@ -195,23 +198,32 @@ exports.editProfilePage = async (req, res) => {
             match,
             matchType
         });
-    } 
+    }
+}
 
 exports.loadfilterPage = (req, res) => {
-    res.render('filter.ejs');
- }
+    if (!req.session.profileID) {
+        res.render('login.ejs');
+    } else {
+        res.render('filter.ejs');
+    }
+}
 
 
- exports.filterPage = async (req, res) => {
+exports.filterPage = async (req, res) => {
     res.redirect(`/discover?type=${req.body.type_filter}`)
- }
+}
 
- exports.markMatchAsSeen = async (req, res) => {
+exports.markMatchAsSeen = async (req, res) => {
     const matchId = req.body.matchid;
-    
+
     try {
-        await matchesModel.findByIdAndUpdate(matchId, {seen: true}, {returnDocument: 'after'})
-    } catch(error) {
+        await matchesModel.findByIdAndUpdate(matchId, {
+            seen: true
+        }, {
+            returnDocument: 'after'
+        })
+    } catch (error) {
         console.log(error)
     }
 
@@ -222,7 +234,4 @@ exports.loadfilterPage = (req, res) => {
     }
 
     return res.redirect(`/discover`)
- }
-       
-
- 
+}

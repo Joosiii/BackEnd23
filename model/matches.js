@@ -17,18 +17,21 @@ const matchesSchema = new mongoose.Schema({
         type: [String],
         required: true
     },
-   bio: {
-        type: String, 
+    bio: {
+        type: String,
         required: true
-   },
-   seen: {
-       type: Boolean,
-       required: false,
-       default: false
-   }
+    },
+    url: {
+        type: String,
+        required: true
+    },
+    seen: {
+        type: Boolean,
+        required: false,
+        default: false
+    }
 });
 
 const matchesModel = mongoose.model("matches", matchesSchema);
 
 module.exports = matchesModel;
-

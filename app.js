@@ -66,14 +66,10 @@ app
     .post('/create', appRoutes)
     .get('/edit', appRoutes)
     .post('/edit', appRoutes)
-
-    .get('/profile',appRoutes)
-    .get('/create',appRoutes)
-    .post('/create',appRoutes)
-    .get('/filter',appRoutes)
-    .post('/filter',appRoutes)
-    .get('/discover',appRoutes)
-    .post('/discover',appRoutes)
+    .get('/filter', appRoutes)
+    .post('/filter', appRoutes)
+    .get('/discover', appRoutes)
+    .post('/discover', appRoutes)
 
 
 
