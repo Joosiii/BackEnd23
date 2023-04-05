@@ -3,12 +3,9 @@ const ProfileModel = require("../model/profile");
 const arrayify = require('array-back');
 const bcrypt = require('bcrypt');
 
-<<<<<<< Updated upstream
 const interests = ["Travel", "Dogs", "Cooking", "Surfing", "Politics", "Cats", "Fitness", "Reading", "Netflix", "Partying"];
-=======
-const interests = ["Travel", "Dogs", "Cooking", "Surfing"];
+//const interests = ["Travel", "Dogs", "Cooking", "Surfing"];
 const breed = ["heidewachter", ""]
->>>>>>> Stashed changes
 
 exports.landingPage = (req, res) => {
     if (!req.session.profileID) {

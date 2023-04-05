@@ -56,7 +56,7 @@ app.set('view engine', 'ejs');
 const appRoutes = require('./routes/index')
 app
     .get('/', appRoutes)
-<<<<<<< Updated upstream
+
     .get('/login', appRoutes)
     .post('/login', appRoutes)
     .get('/logout', appRoutes)
@@ -66,7 +66,7 @@ app
     .post('/create', appRoutes)
     .get('/edit', appRoutes)
     .post('/edit', appRoutes)
-=======
+
     .get('/profile',appRoutes)
     .get('/create',appRoutes)
     .post('/create',appRoutes)
@@ -75,7 +75,7 @@ app
     .get('/discover',appRoutes)
     .post('/discover',appRoutes)
 
->>>>>>> Stashed changes
+
 
 
 ////////////////
